@@ -6,9 +6,25 @@
     function MsgController($scope) {
       $scope.foods = '';
       $scope.message = '';
-
+      $scope.fontcolor="black";
+      $scope.borderstyle="border:0px; border-style:solid; border-color:red; padding: 1em;";
       $scope.checkFoods = function() {
-        $scope.message = getMessage($scope.foods)
+        var foodArray = $scope.foods.split(",");
+        // filter empty items
+        var filteredArray = foodArray.filter(isNotEmpty);
+        if (filteredArray.length == 0) {
+          $scope.message =  "Please enter data first";
+          $scope.fontcolor="red";
+          $scope.borderstyle="border:3px; border-style:solid; border-color:red; padding: 1em;"
+        } else if (filteredArray.length  <= 3) {
+          $scope.message =  "Enjoy!";
+          $scope.fontcolor="green";
+          $scope.borderstyle="border:3px; border-style:solid; border-color:green; padding: 1em;"
+        } else {
+          $scope.message =  "Too much!";
+          $scope.fontcolor="green";
+          $scope.borderstyle="border:3px; border-style:solid; border-color:green; padding: 1em;"
+        }
       }
 
       function getMessage(foods) {
